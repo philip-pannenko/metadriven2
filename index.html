@@ -1,0 +1,50 @@
+<html>
+<head>
+    <title> MetaDriven2</title>
+</head>
+<body ng-app="myModule">
+
+<div ng-controller="FormController">
+    <form name="myForm"
+          sf-schema="schema"
+          sf-form="form"
+          sf-model="model"
+          ng-submit="onSubmit(myForm)"></form>
+</div>
+
+<script type="text/javascript" src="js/angular.js"></script>
+<script type="text/javascript" src="js/angular-sanitize.js"></script>
+<script type="text/javascript" src="js/tv4.js"></script>
+<script type="text/javascript" src="js/ObjectPath.js"></script>
+<script type="text/javascript" src="js/schema-form.js"></script>
+<script type="text/javascript" src="js/bootstrap-decorator.js"></script>
+
+<script type="text/javascript">
+
+    angular.module('myModule', ['schemaForm'])
+            .controller('FormController', function ($scope, $log, $http) {
+                $http.get('http://localhost:8085/hello-world').success(function (data) {
+                    $log.log("found simple.json from remote");
+                    $scope.schema = data.schema;
+                    $scope.form = data.form;
+                });
+                $scope.model = {};
+                $scope.onSubmit = function (form) {
+                    $log.log("save clicked!");
+                    $scope.$broadcast('schemaFormValidate');
+                    if (form.$valid) {
+                        $log.log('form was valid');
+                        $http.post('http://localhost:8085/hello-world/post', $scope.model).success(function (data) {
+                            $log.log(data);
+                        }).error(function (data) {
+                            $log.log(data);
+                        })
+                    }
+                }
+            });
+
+</script>
+
+</body>
+
+</html>
