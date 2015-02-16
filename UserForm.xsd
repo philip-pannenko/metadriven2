@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="userForm" type="userForm"/>
+
+  <xs:complexType name="userForm">
+    <xs:sequence>
+      <xs:element name="comment" type="xs:string" minOccurs="0"/>
+      <xs:element name="email" type="xs:string" minOccurs="0"/>
+      <xs:element name="fname" type="xs:string" minOccurs="0"/>
+      <xs:element name="form" type="formElement" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="lname" type="xs:string" minOccurs="0"/>
+      <xs:element name="schema" type="schema" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="formElement">
+    <xs:sequence>
+      <xs:element name="key" type="xs:string" minOccurs="0"/>
+      <xs:element name="placeholder" type="xs:string" minOccurs="0"/>
+      <xs:element name="style" type="xs:string" minOccurs="0"/>
+      <xs:element name="title" type="xs:string" minOccurs="0"/>
+      <xs:element name="type" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="schema">
+    <xs:sequence>
+      <xs:element name="properties">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="key" minOccurs="0" type="xs:string"/>
+                  <xs:element name="value" minOccurs="0" type="schemaProperty"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="required" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="title" type="xs:string" minOccurs="0"/>
+      <xs:element name="type" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="schemaProperty">
+    <xs:sequence>
+      <xs:element name="description" type="xs:string" minOccurs="0"/>
+      <xs:element name="maxLength" type="xs:int" minOccurs="0"/>
+      <xs:element name="pattern" type="xs:string" minOccurs="0"/>
+      <xs:element name="title" type="xs:string" minOccurs="0"/>
+      <xs:element name="type" type="xs:string" minOccurs="0"/>
+      <xs:element name="validationMessage" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+
